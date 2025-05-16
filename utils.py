@@ -48,6 +48,7 @@ def draw_forces_on_canvas(ax, structure):
                 ax.text(x_pos + moment_radius * np.cos(angle), y_pos + moment_radius * np.sin(angle), f'M={M}', fontsize=10, color='red')
 
 def draw_structure_on_canvas(canvas_frame, structure):
+    plt.close('all')  # Close all previous figures to prevent memory leaks
     # Close previous figures to prevent memory leaks
     for widget in canvas_frame.winfo_children():
         widget.destroy()
@@ -294,6 +295,8 @@ def resistance_analysis(bar: Bar):
 
 def draw_section_plot(canvas_frame, bar: Bar):
     """Draw the section plot of a bar."""
+    # Close all previous figures to prevent memory leaks
+    plt.close('all')  # Close all previous figures to prevent memory leaks
     # Close previous figures to prevent memory leaks
     for widget in canvas_frame.winfo_children():
         widget.destroy()

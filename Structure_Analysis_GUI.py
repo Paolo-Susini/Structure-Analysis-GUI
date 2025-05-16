@@ -85,6 +85,9 @@ def main():
         proxy = abs(stresses_bar1[1]) + abs(stresses_bar1[2]) + abs(stresses_bar1[3])
         idx = np.argmax(proxy)
         
+        # Update the label to show which is the most stressed section
+        most_stressed_section_label.config(text=f"Most stressed section is at: {np.round(stresses_bar1[0][idx+1], 2)} (mm)", foreground="black")
+
         # Evaluate resistance check
         von_mises_stress, limit, _, _ = bar1.resistance_analysis(stresses_bar1[1][idx], stresses_bar1[2][idx], stresses_bar1[3][idx])
         if von_mises_stress < limit:
@@ -218,8 +221,12 @@ def main():
     height_thickness_entry.grid(row=6, column=1, sticky="ew", padx=5)
     
     # Show if the section is able to resist the load
+    most_stressed_section_label = ttk.Label(resistance_frame, text="Most stressed section is at:", font=("Arial", 24))
+    most_stressed_section_label.grid(row=7, column=0, columnspan=2, sticky="ew", pady=10)
+    
+    # Show if the section is able to resist the load
     check_resistance_label = ttk.Label(resistance_frame, text="Resistance Check ...", font=("Arial", 24))
-    check_resistance_label.grid(row=7, column=0, columnspan=2, sticky="ew", pady=10)
+    check_resistance_label.grid(row=8, column=0, columnspan=2, sticky="ew", pady=10)
 
     # Row 2: Length slider
     length_slider = ttk.Scale(controls_frame, from_=l0, to=2*l0, variable=l_var, orient='horizontal', command=update_structure_from_slider)
